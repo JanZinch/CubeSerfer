@@ -6,6 +6,8 @@ namespace Controllers
 {
     public class ScreenInputAxis : MonoBehaviour, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler
     {
+        public static ScreenInputAxis Instance { get; private set; }
+
         [SerializeField] private Camera _camera;
         //[SerializeField] 
         
@@ -26,6 +28,22 @@ namespace Controllers
 
                 return transform.InverseTransformPoint(Input.mousePosition).normalized;
             }
+        }
+
+        private void Awake()
+        {
+            Instance = this;
+            
+            /*if (Instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                
+            }*/
+
+            
         }
 
         public void OnPointerDown(PointerEventData eventData)

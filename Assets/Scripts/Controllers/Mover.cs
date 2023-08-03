@@ -9,16 +9,15 @@ namespace Controllers
         [SerializeField] private float _forwardSpeed;
         [SerializeField] private float _maxHorizontalSpeed;
         [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private ScreenInputAxis _screenInputAxis;
-
+        
         [SerializeField] private float _leftMovementConstraint = -2.0f;
         [SerializeField] private float _rightMovementConstraint = 2.0f;
-
+        
         private void Update()
         {
             //transform.Translate(_screenInputAxis.Delta.x * _maxHorizontalSpeed, 0.0f, 0.0f);
 
-            _rigidbody.MovePosition(_rigidbody.position.WithX(Mathf.Clamp(_rigidbody.position.x + _screenInputAxis.Delta.x * _maxHorizontalSpeed,
+            _rigidbody.MovePosition(_rigidbody.position.WithX(Mathf.Clamp(_rigidbody.position.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
                 _leftMovementConstraint, _rightMovementConstraint)));
             
             /*_rigidbody.position += Vector3.right * Mathf.Clamp(_screenInputAxis.Delta.x * _maxHorizontalSpeed,
