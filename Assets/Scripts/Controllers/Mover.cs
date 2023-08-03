@@ -18,7 +18,11 @@ namespace Controllers
         {
             //transform.Translate(_screenInputAxis.Delta.x * _maxHorizontalSpeed, 0.0f, 0.0f);
 
-            _rigidbody.position += Vector3.right * (_screenInputAxis.Delta.x * _maxHorizontalSpeed);
+            _rigidbody.MovePosition(_rigidbody.position.WithX(Mathf.Clamp(_rigidbody.position.x + _screenInputAxis.Delta.x * _maxHorizontalSpeed,
+                _leftMovementConstraint, _rightMovementConstraint)));
+            
+            /*_rigidbody.position += Vector3.right * Mathf.Clamp(_screenInputAxis.Delta.x * _maxHorizontalSpeed,
+                _leftMovementConstraint, _rightMovementConstraint);*/
         }
 
         private void FixedUpdate()

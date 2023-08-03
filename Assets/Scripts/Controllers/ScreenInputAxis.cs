@@ -49,7 +49,8 @@ namespace Controllers
 
             //Debug.Log("Pos: " + transform.InverseTransformPoint(Input.mousePosition).normalized);*/
 
-
+            
+            //Debug.Log("Pos: " + transform.InverseTransformPoint(Input.mousePosition));
         }
 
         private void Update()

@@ -9185,7 +9185,7 @@ PrefabInstance:
       objectReference: {fileID: 59114483}
     - target: {fileID: 5078128304569416513, guid: 428bb0e96684e4d418736578540001bc, type: 3}
       propertyPath: _maxHorizontalSpeed
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5078128304569416514, guid: 428bb0e96684e4d418736578540001bc, type: 3}
       propertyPath: m_Constraints
