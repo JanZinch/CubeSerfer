@@ -80,15 +80,19 @@ namespace Environment
 
         private void OnStackCollided()
         {
-            Block newMovable = _blocks.First((block) => block.IsCollided);
+            Block newMovable = _blocks.Last((block) => !block.IsCollided);
 
-            Block lastCollided = _blocks.Find(newMovable).Next.Value;
+            Debug.Log("New movable: " + newMovable.gameObject.name);
             
-            lastCollided.Leave();
+            Block topCollided = _blocks.First((block) => block.IsCollided);
+            
+            Debug.Log("Top collided: " + topCollided.gameObject.name);
+            
+            topCollided.Leave();
             
             newMovable.SetMovable(true);
             
-            Debug.Log("New movable: " + newMovable.gameObject.name);
+            
             
             _allCollisionsWait = null;
             _afterCollisionDelay = DOVirtual.DelayedCall(2.0f, () =>

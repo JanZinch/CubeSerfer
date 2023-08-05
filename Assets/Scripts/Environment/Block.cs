@@ -47,6 +47,12 @@ namespace Environment
             }
         }
 
+        [EasyButtons.Button]
+        public void Launch()
+        {
+            SetMovable(true);
+        }
+
         private void Awake()
         {
             SetMovable(_isMovable);
