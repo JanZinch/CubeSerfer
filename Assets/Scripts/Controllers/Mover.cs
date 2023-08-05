@@ -1,4 +1,5 @@
 ﻿using System;
+using Configs;
 using DG.Tweening;
 using Extensions;
 using UnityEngine;
@@ -7,15 +8,19 @@ namespace Controllers
 {
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private float _forwardSpeed;
-        [SerializeField] private float _maxHorizontalSpeed;
-        [SerializeField] private Rigidbody _rigidbody;
+        private MoverConfig _config;
+        private Rigidbody _rigidbody;
         
-        [SerializeField] private float _leftMovementConstraint = -2.0f;
-        [SerializeField] private float _rightMovementConstraint = 2.0f;
-
         private MoverDirection _direction = MoverDirection.Forward;
-        
+
+        public Mover Launch(MoverConfig config, Rigidbody rigidbody)
+        {
+            _config = config;
+            _rigidbody = rigidbody;
+
+            return this;
+        }
+
         [EasyButtons.Button]
         private void RotateMe()
         {
@@ -38,8 +43,8 @@ namespace Controllers
         {
             //transform.Translate(_screenInputAxis.Delta.x * _maxHorizontalSpeed, 0.0f, 0.0f);
 
-            _rigidbody.MovePosition(_rigidbody.position.WithX(Mathf.Clamp(_rigidbody.position.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
-                _leftMovementConstraint, _rightMovementConstraint)));
+            _rigidbody.MovePosition(_rigidbody.position.WithX(Mathf.Clamp(_rigidbody.position.x + ScreenInputAxis.Instance.Delta.x * _config.MaxHorizontalSpeed,
+                _config.LeftMovementConstraint, _config.RightMovementConstraint)));
             
             /*_rigidbody.position += Vector3.right * Mathf.Clamp(_screenInputAxis.Delta.x * _maxHorizontalSpeed,
                 _leftMovementConstraint, _rightMovementConstraint);*/
@@ -52,15 +57,15 @@ namespace Controllers
             switch (_direction)
             {
                 case MoverDirection.Forward:
-                    _rigidbody.velocity = _rigidbody.velocity.WithX(0.0f).WithZ(_forwardSpeed);
+                    _rigidbody.velocity = _rigidbody.velocity.WithX(0.0f).WithZ(_config.ForwardSpeed);
                     break;
                 
                 case MoverDirection.Left:
-                    _rigidbody.velocity = _rigidbody.velocity.WithX(-_forwardSpeed).WithZ(0.0f);
+                    _rigidbody.velocity = _rigidbody.velocity.WithX(-_config.ForwardSpeed).WithZ(0.0f);
                     break;
                 
                 case MoverDirection.Right:
-                    _rigidbody.velocity = _rigidbody.velocity.WithX(_forwardSpeed).WithZ(0.0f);
+                    _rigidbody.velocity = _rigidbody.velocity.WithX(_config.ForwardSpeed).WithZ(0.0f);
                     break;
             }
             

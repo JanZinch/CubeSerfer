@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +16,9 @@ namespace Environment
         private LinkedList<Block> _blocks;
 
         public UnityEvent<Block> OnBlockAdded => _onBlockAdded;
+
+        private Tween _allCollisionsWait;
+        private Tween _afterCollisionDelay;
         
         private void Awake()
         {
@@ -25,6 +30,14 @@ namespace Environment
             foreach (var block in _blocks)
             {
                 Debug.Log("i: " + (i++) + " name: " + block.gameObject.name);
+            }
+        }
+
+        private void OnEnable()
+        {
+            foreach (Block block in _blocks)
+            {
+                block.OnCollidedWithObstacle.AddListener(OnBlockCollided);
             }
         }
 
@@ -53,8 +66,45 @@ namespace Environment
                 Debug.Log("i: " + (i++) + " name: " + blo.gameObject.name);
             }
         }
-        
-        
+
+        private void OnBlockCollided(Block block)
+        {
+            if (_afterCollisionDelay != null)
+                return;
+            
+            if (_allCollisionsWait == null)
+            {
+                _allCollisionsWait = DOVirtual.DelayedCall(Time.fixedDeltaTime * 2.0f, OnStackCollided);
+            }
+        }
+
+        private void OnStackCollided()
+        {
+            Block newMovable = _blocks.First((block) => block.IsCollided);
+
+            Block lastCollided = _blocks.Find(newMovable).Next.Value;
+            
+            lastCollided.Leave();
+            
+            newMovable.SetMovable(true);
+            
+            Debug.Log("New movable: " + newMovable.gameObject.name);
+            
+            _allCollisionsWait = null;
+            _afterCollisionDelay = DOVirtual.DelayedCall(2.0f, () =>
+            {
+                _afterCollisionDelay.Kill();
+            });
+        }
+
+        private void OnDisable()
+        {
+            foreach (Block block in _blocks)
+            {
+                block.OnCollidedWithObstacle.RemoveListener(OnBlockCollided);
+            }
+        }
+
 
     }
 }

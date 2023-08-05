@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3099257516151847767, guid: b6dd43701e3331341b307bbf20fa768f, type: 3}
+      propertyPath: _isMovable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2412485793142644306, guid: b6dd43701e3331341b307bbf20fa768f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,31 +61,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6dd43701e3331341b307bbf20fa768f, type: 3}
---- !u!1 &438651062083855362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8119571791921169687, guid: b6dd43701e3331341b307bbf20fa768f, type: 3}
-  m_PrefabInstance: {fileID: 8554839656672616725}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &553360047335380252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438651062083855362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cc2183e0c664c0eb3d85dc9cab6c432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _forwardSpeed: 2
-  _maxHorizontalSpeed: 6
-  _rigidbody: {fileID: 1825573068499002151}
-  _screenInputAxis: {fileID: 0}
-  _leftMovementConstraint: -2
-  _rightMovementConstraint: 2
---- !u!54 &1825573068499002151 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 8065199672953815602, guid: b6dd43701e3331341b307bbf20fa768f, type: 3}
-  m_PrefabInstance: {fileID: 8554839656672616725}
-  m_PrefabAsset: {fileID: 0}

@@ -1,6 +1,10 @@
-﻿using Controllers;
+﻿using System;
+using Configs;
+using Controllers;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Environment
 {
@@ -9,42 +13,72 @@ namespace Environment
         [SerializeField] private Joint _joint;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private bool _isMovable;
+        [SerializeField] private MoverConfig _moverConfig;
         
+        [HideInInspector] [SerializeField] private UnityEvent<Block> _onCollidedWithObstacle;
+
+        public UnityEvent<Block> OnCollidedWithObstacle => _onCollidedWithObstacle;
+
+        private Mover _mover = null;
+        
+        public bool IsMovable => _mover != null;
+
+        public bool IsCollided { get; private set; }
+
         private Rigidbody ConnectedBody
         {
             get =>_joint.connectedBody;
             set => _joint.connectedBody = value;
         }
-        
+
+        public void SetMovable(bool movable)
+        {
+            if (IsMovable == movable)
+                return;
+            
+            if (IsMovable)
+            {
+                Destroy(_mover);
+            }
+            else
+            {
+                _mover = gameObject.AddComponent<Mover>().Launch(_moverConfig, _rigidbody);
+            }
+        }
+
+        private void Awake()
+        {
+            SetMovable(_isMovable);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Obstacle"))
+            {
+                IsCollided = true;
+                OnCollidedWithObstacle?.Invoke(this);
+            }
+        }
+
         public void AttachTo(Block other)
         {
-            
-            //transform.position = other.GetAttachingPosition();
-            //_rigidbody.position = other.GetAttachingPosition();
-
             
             Destroy(_joint);
        
             transform.position = other.GetAttachingPosition();
-            //_rigidbody.MovePosition(other.GetAttachingPosition());
-
+      
             _joint = gameObject.AddComponent<FixedJoint>();
             other.ConnectedBody = _rigidbody;
             
-            //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = other.GetAttachingPosition();
-            
-            //transform.rotation = Quaternion.identity;
+        }
 
-
-            /*DOVirtual.DelayedCall(1.0f, () =>
-            {
-                other.ConnectedBody = _rigidbody;
-            });*/
+        public void Leave()
+        {
+            SetMovable(false);
+            Destroy(_joint);
         }
         
-        
-        
-
         public void PutCharacter(Character character)
         {
             character.transform.position = GetAttachingPosition();
@@ -55,8 +89,6 @@ namespace Environment
 
         private Vector3 GetAttachingPosition()
         {
-            //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = transform.position + new Vector3(0.0f, _meshRenderer.bounds.size.y * 1.15f, 0.0f);
-            
             return transform.position + new Vector3(0.0f, _meshRenderer.bounds.size.y, 0.0f);
         }
 
