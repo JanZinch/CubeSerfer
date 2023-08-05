@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Environment
 {
     public class BlocksStack : MonoBehaviour
     {
+        [SerializeField] private UnityEvent<Block> _onBlockAdded;
+
+        [SerializeField] private List<Block> _initialBlocks;
+        
         private LinkedList<Block> _blocks;
 
+        public UnityEvent<Block> OnBlockAdded => _onBlockAdded;
+        
         private void Awake()
         {
-            _blocks = new LinkedList<Block>(GetComponentsInChildren<Block>());
-
+            _blocks = new LinkedList<Block>(_initialBlocks);
+            
+            
             int i = 0;
             
             foreach (var block in _blocks)
@@ -30,11 +38,13 @@ namespace Environment
 
         public void Add(Block block)
         {
-            block.transform.SetParent(transform);
-            block.transform.SetAsFirstSibling();
+            //block.transform.SetParent(transform);
+            //block.transform.SetAsFirstSibling();
             
             block.AttachTo(_blocks.First.Value);
             _blocks.AddFirst(block);
+            
+            OnBlockAdded?.Invoke(block);
             
             int i = 0;
             
