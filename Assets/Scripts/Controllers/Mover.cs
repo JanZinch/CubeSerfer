@@ -18,6 +18,9 @@ namespace Controllers
             _config = config;
             _rigidbody = rigidbody;
 
+            
+            //_rigidbody.DOP
+            
             return this;
         }
 
@@ -30,12 +33,12 @@ namespace Controllers
         [EasyButtons.Button]
         private void TurnLeft()
         {
-            /*DOTween.To(() => _rigidbody.velocity, (newVelocity) => _rigidbody.velocity = newVelocity,
-                Vector3.zero.WithX(-_forwardSpeed), 1.0f);*/
+            DOTween.To(() => _rigidbody.velocity, (newVelocity) => _rigidbody.velocity = newVelocity,
+                Vector3.zero.WithX(-_config.ForwardSpeed), 1.0f);
 
             _direction = MoverDirection.Left;
             
-            //_rigidbody.velocity = Vector3.zero.WithX(-_forwardSpeed);
+            //_rigidbody.velocity = Vector3.zero.WithX(-_config.ForwardSpeed);
 
         }
 
