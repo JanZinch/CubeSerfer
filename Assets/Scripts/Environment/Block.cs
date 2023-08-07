@@ -3,7 +3,6 @@ using Configs;
 using Controllers;
 using DG.Tweening;
 using Unity.VisualScripting;
-using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -12,7 +11,6 @@ namespace Environment
 {
     public class Block : MonoBehaviour
     {
-        [SerializeField] private Preset _jointPreset;
         [SerializeField] private Joint _joint;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private MeshRenderer _meshRenderer;
@@ -74,13 +72,14 @@ namespace Environment
             transform.position = other.GetAttachingPosition();
 
             //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = transform.position;
-            
-            _joint = gameObject.AddComponent<ConfigurableJoint>();
+
+            _joint = AddConfiguredJoint(gameObject, other._rigidbody);
             //PresetType TYPE = _jointPreset.GetPresetType()
-            _jointPreset.ApplyTo(_joint);
+            /*_jointPreset.ApplyTo(_joint);
             _joint.connectedBody = other._rigidbody;
-            _joint.connectedAnchor = Vector3.up * 1.5f;
+            _joint.connectedAnchor = Vector3.up * 1.5f;*/
             //other.ConnectedBody = _rigidbody;
+            
             
         }
 
@@ -103,10 +102,12 @@ namespace Environment
             character.transform.position = GetAttachingPosition();
             character.transform.rotation = Quaternion.identity;
 
-            character.Joint = character.AddComponent<ConfigurableJoint>();
+            /*character.Joint = character.AddComponent<ConfigurableJoint>();
             _jointPreset.ApplyTo(character.Joint);
             character.Joint.connectedBody = _rigidbody;
-            character.Joint.connectedAnchor = Vector3.up * 1.5f;
+            character.Joint.connectedAnchor = Vector3.up * 1.5f;*/
+
+            character.Joint = AddConfiguredJoint(character.gameObject, _rigidbody);
         }
 
         private Vector3 GetAttachingPosition()
@@ -114,12 +115,30 @@ namespace Environment
             return transform.position + new Vector3(0.0f, _meshRenderer.bounds.size.y, 0.0f);
         }
 
-        private static void ConfigureJoint(ConfigurableJoint joint)
+        private static Joint AddConfiguredJoint(GameObject gameObject, Rigidbody connectableBody)
         {
+            ConfigurableJoint joint = gameObject.AddComponent<ConfigurableJoint>();
+            
             joint.autoConfigureConnectedAnchor = false;
+            
             joint.anchor = new Vector3(0.0f, 0.5f, 0.0f);
-            //joint.connectedAnchor
+            joint.connectedBody = connectableBody;
+            joint.connectedAnchor = new Vector3(0.0f, 1.5f, 0.0f);
 
+            joint.yMotion = ConfigurableJointMotion.Free;
+            joint.yDrive = new JointDrive()
+            {
+                positionSpring = 1000.0f,
+                maximumForce = float.MaxValue,
+            };
+            
+            joint.xMotion = ConfigurableJointMotion.Locked;
+            joint.zMotion = ConfigurableJointMotion.Locked;
+            joint.angularXMotion = ConfigurableJointMotion.Locked;
+            joint.angularYMotion = ConfigurableJointMotion.Locked;
+            joint.angularZMotion = ConfigurableJointMotion.Locked;
+
+            return joint;
         }
 
     }

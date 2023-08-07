@@ -205,6 +205,7 @@ MonoBehaviour:
   _joint: {fileID: 7898718366956779144}
   _rigidbody: {fileID: 7898718366956779147}
   _blocksStack: {fileID: 65892473284170573}
+  Joint: {fileID: 0}
 --- !u!33 &7898718366956779156
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -439,10 +440,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7898718365943617303}
     m_Modifications:
-    - target: {fileID: 635946883713910069, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1698012691139183120, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
       propertyPath: m_Name
       value: block
@@ -521,10 +518,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7898718365943617303}
     m_Modifications:
-    - target: {fileID: 635946883713910069, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
-      propertyPath: m_Constraints
-      value: 114
-      objectReference: {fileID: 0}
     - target: {fileID: 1698012691139183120, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
       propertyPath: m_Name
       value: block (2)
@@ -708,10 +701,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7898718365943617303}
     m_Modifications:
-    - target: {fileID: 635946883713910069, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
-      propertyPath: m_Constraints
-      value: 114
-      objectReference: {fileID: 0}
     - target: {fileID: 1698012691139183120, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
       propertyPath: m_Name
       value: block (1)
