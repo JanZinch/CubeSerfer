@@ -2,6 +2,7 @@
 using Configs;
 using Controllers;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,11 +29,7 @@ namespace Environment
 
         public bool IsCollided { get; private set; }
 
-        private Rigidbody ConnectedBody
-        {
-            get =>_joint.connectedBody;
-            set => _joint.connectedBody = value;
-        }
+        public Rigidbody Body => _rigidbody;
 
         /*public void SetMovable(bool movable)
         {
@@ -75,11 +72,15 @@ namespace Environment
             Destroy(_joint);
        
             transform.position = other.GetAttachingPosition();
-      
+
+            //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = transform.position;
+            
             _joint = gameObject.AddComponent<ConfigurableJoint>();
             //PresetType TYPE = _jointPreset.GetPresetType()
-            _jointPreset.ApplyTo(_joint); 
-            other.ConnectedBody = _rigidbody;
+            _jointPreset.ApplyTo(_joint);
+            _joint.connectedBody = other._rigidbody;
+            _joint.connectedAnchor = Vector3.up * 1.5f;
+            //other.ConnectedBody = _rigidbody;
             
         }
 
@@ -91,10 +92,15 @@ namespace Environment
         
         public void PutCharacter(Character character)
         {
+            Destroy(character.Joint);
+            
             character.transform.position = GetAttachingPosition();
             character.transform.rotation = Quaternion.identity;
-            
-            _joint.connectedBody = character.Rigidbody;
+
+            character.Joint = character.AddComponent<ConfigurableJoint>();
+            _jointPreset.ApplyTo(character.Joint);
+            character.Joint.connectedBody = _rigidbody;
+            character.Joint.connectedAnchor = Vector3.up * 1.5f;
         }
 
         private Vector3 GetAttachingPosition()

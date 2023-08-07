@@ -8,6 +8,7 @@ using UnityEngine.Events;
 
 namespace Environment
 {
+    [RequireComponent(typeof(Collider))]
     public class BlocksStack : MonoBehaviour
     {
         [SerializeField] private UnityEvent<Block> _onBlockAdded;
@@ -52,8 +53,8 @@ namespace Environment
 
         public void Add(Block block)
         {
-            //block.transform.SetParent(transform);
-            //block.transform.SetAsFirstSibling();
+            block.transform.SetParent(transform);
+            block.transform.SetSiblingIndex(1);
             
             block.AttachTo(_blocks.First.Value);
             _blocks.AddFirst(block);

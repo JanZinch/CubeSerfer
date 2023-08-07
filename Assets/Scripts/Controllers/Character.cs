@@ -6,11 +6,18 @@ namespace Controllers
 {
     public class Character : MonoBehaviour
     {
+        [SerializeField] private Joint _joint;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private BlocksStack _blocksStack;
 
+        public Joint Joint;
         public Rigidbody Rigidbody => _rigidbody;
-        
+
+        private void Awake()
+        {
+            Joint = _joint;
+        }
+
         private void OnEnable()
         {
             _blocksStack.OnBlockAdded.AddListener(MoveUp);
