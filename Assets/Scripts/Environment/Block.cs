@@ -84,10 +84,16 @@ namespace Environment
             
         }
 
+        public void Detach()
+        {
+            Destroy(_joint);
+        }
+
         public void Lose()
         {
             //SetMovable(false);
             Destroy(_joint);
+            transform.SetParent(null);
         }
         
         public void PutCharacter(Character character)

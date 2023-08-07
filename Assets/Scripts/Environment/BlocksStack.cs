@@ -99,7 +99,7 @@ namespace Environment
             //topCollided.Lose();
             
             //newMovable.SetMovable(true);
-            
+            newMovable.Detach();
             
             
             _allCollisionsWait = null;
