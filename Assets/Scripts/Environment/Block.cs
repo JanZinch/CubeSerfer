@@ -2,6 +2,7 @@
 using Configs;
 using Controllers;
 using DG.Tweening;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -10,19 +11,20 @@ namespace Environment
 {
     public class Block : MonoBehaviour
     {
+        [SerializeField] private Preset _jointPreset;
         [SerializeField] private Joint _joint;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private bool _isMovable;
-        [SerializeField] private MoverConfig _moverConfig;
+        //[SerializeField] private MoverConfig _moverConfig;
         
         [HideInInspector] [SerializeField] private UnityEvent<Block> _onCollidedWithObstacle;
 
         public UnityEvent<Block> OnCollidedWithObstacle => _onCollidedWithObstacle;
 
-        private Mover _mover = null;
+        //private Mover _mover = null;
         
-        public bool IsMovable => _mover != null;
+        //public bool IsMovable => _mover != null;
 
         public bool IsCollided { get; private set; }
 
@@ -32,7 +34,7 @@ namespace Environment
             set => _joint.connectedBody = value;
         }
 
-        public void SetMovable(bool movable)
+        /*public void SetMovable(bool movable)
         {
             if (IsMovable == movable)
                 return;
@@ -45,9 +47,9 @@ namespace Environment
             {
                 _mover = gameObject.AddComponent<Mover>().Launch(_moverConfig, _rigidbody);
             }
-        }
+        }*/
 
-        [EasyButtons.Button]
+        /*[EasyButtons.Button]
         public void Launch()
         {
             SetMovable(true);
@@ -56,7 +58,7 @@ namespace Environment
         private void Awake()
         {
             SetMovable(_isMovable);
-        }
+        }*/
 
         private void OnCollisionEnter(Collision other)
         {
@@ -74,14 +76,16 @@ namespace Environment
        
             transform.position = other.GetAttachingPosition();
       
-            _joint = gameObject.AddComponent<FixedJoint>();
+            _joint = gameObject.AddComponent<ConfigurableJoint>();
+            //PresetType TYPE = _jointPreset.GetPresetType()
+            _jointPreset.ApplyTo(_joint); 
             other.ConnectedBody = _rigidbody;
             
         }
 
         public void Lose()
         {
-            SetMovable(false);
+            //SetMovable(false);
             Destroy(_joint);
         }
         
@@ -96,6 +100,14 @@ namespace Environment
         private Vector3 GetAttachingPosition()
         {
             return transform.position + new Vector3(0.0f, _meshRenderer.bounds.size.y, 0.0f);
+        }
+
+        private static void ConfigureJoint(ConfigurableJoint joint)
+        {
+            joint.autoConfigureConnectedAnchor = false;
+            joint.anchor = new Vector3(0.0f, 0.5f, 0.0f);
+            //joint.connectedAnchor
+
         }
 
     }

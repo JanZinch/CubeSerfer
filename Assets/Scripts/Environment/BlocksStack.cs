@@ -97,7 +97,7 @@ namespace Environment
             
             //topCollided.Lose();
             
-            newMovable.SetMovable(true);
+            //newMovable.SetMovable(true);
             
             
             
