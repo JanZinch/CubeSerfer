@@ -2,6 +2,7 @@
 using DG.Tweening;
 using DG.Tweening.Plugins.Core.PathCore;
 using Extensions;
+using PathCreation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,46 +17,34 @@ namespace Controllers
         
         [SerializeField] private Transform _controlledBody;
 
-        [SerializeField] private Transform _pathPointsParent;
+        [SerializeField] private PathCreator _pathCreator;
         
-        
+        private float _distancePassed;
         
         private void Start()
         {
-            Vector3[] waypoints = new Vector3[_pathPointsParent.childCount];
-
-            int i = 0;
-            
-            foreach (Transform point in _pathPointsParent)
-            {
-                waypoints[i] = point.position;
-                i++;
-            }
-
-            transform.DOLocalPath(waypoints, _forwardSpeed, PathType.Linear, PathMode.Full3D, 10, Color.red).SetEase(Ease.Linear).SetSpeedBased().OnComplete(
-                () =>
-                {
-                    Debug.Log("Success!");
-                });
             
             
         }
 
         private void Update()
         {
-            _controlledBody.localPosition = _controlledBody.localPosition.WithX(Mathf.Clamp(_controlledBody.position.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
-                _leftMovementConstraint, _rightMovementConstraint));
+            MoveByZAxis();
+            MoveByXAxis();
         }
 
         private void MoveByXAxis()
         {
-            _controlledBody.position = _controlledBody.position.WithX(Mathf.Clamp(_controlledBody.position.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
+            _controlledBody.localPosition = _controlledBody.localPosition.WithX(Mathf.Clamp(_controlledBody.position.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
                 _leftMovementConstraint, _rightMovementConstraint));
         }
 
         private void MoveByZAxis()
         {
-            transform.Translate(Vector3.forward * (_forwardSpeed * Time.deltaTime));
+            _distancePassed += _forwardSpeed * Time.deltaTime;
+
+            transform.position = _pathCreator.path.GetPointAtDistance(_distancePassed);
+            transform.rotation = _pathCreator.path.GetRotationAtDistance(_distancePassed);
         }
 
     }
