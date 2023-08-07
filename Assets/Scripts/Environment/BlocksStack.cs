@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -84,11 +85,17 @@ namespace Environment
 
             Debug.Log("New movable: " + newMovable.gameObject.name);
             
-            Block topCollided = _blocks.First((block) => block.IsCollided);
-            
+            Block topCollided = _blocks.First((block) => block.IsCollided);         // TODO убрать
             Debug.Log("Top collided: " + topCollided.gameObject.name);
+
+            IEnumerable<Block> lostBlocks = _blocks.SkipWhile((block) => !block.IsCollided);
+
+            foreach (Block block in lostBlocks)
+            {
+                block.Lose();
+            }
             
-            topCollided.Leave();
+            //topCollided.Lose();
             
             newMovable.SetMovable(true);
             

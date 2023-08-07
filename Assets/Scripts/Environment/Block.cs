@@ -79,7 +79,7 @@ namespace Environment
             
         }
 
-        public void Leave()
+        public void Lose()
         {
             SetMovable(false);
             Destroy(_joint);
