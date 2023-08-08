@@ -7,6 +7,12 @@ namespace Environment.Obstacles
     {
         [SerializeField] private List<ObstacleBlock> _blocks;
 
+        [EasyButtons.Button]
+        private void InitializeBlocksList()
+        {
+            _blocks = new List<ObstacleBlock>(GetComponentsInChildren<ObstacleBlock>());
+        }
+
         private void StartListening()
         {
             foreach (ObstacleBlock block in _blocks)
