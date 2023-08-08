@@ -17,7 +17,7 @@ namespace Controllers
         private void OnEnable()
         {
             _blocksStack.OnBlockAdded.AddListener(OnBlockAdded);
-            _blocksStack.OnBlockRemoved.AddListener(OnBlockRemoved);
+            //_blocksStack.OnBlockRemoved.AddListener(OnBlockRemoved);
         }
         
         private void Start()
@@ -46,7 +46,7 @@ namespace Controllers
 
         private void OnDisable()
         {
-            _blocksStack.OnBlockRemoved.RemoveListener(OnBlockRemoved);
+            //_blocksStack.OnBlockRemoved.RemoveListener(OnBlockRemoved);
             _blocksStack.OnBlockAdded.RemoveListener(OnBlockAdded);
         }
     }
