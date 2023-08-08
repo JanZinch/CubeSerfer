@@ -26,6 +26,12 @@ namespace Environment
                 wallLevel.IsCollided = true;
                 OnCollidedWithObstacle?.Invoke(this);
             }
+            else if (other.gameObject.TryGetComponent<Deep>(out Deep deep))
+            {
+                IsCollided = true;
+                OnCollidedWithObstacle?.Invoke(this);
+                Destroy(gameObject);
+            }
         }
 
         public void AttachTo(Block other)
