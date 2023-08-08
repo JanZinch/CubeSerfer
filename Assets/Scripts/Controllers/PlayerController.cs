@@ -29,13 +29,13 @@ namespace Controllers
 
         private void Update()
         {
-            MoveByZAxis();
+            //MoveByZAxis();
             MoveByXAxis();
         }
 
         private void MoveByXAxis()
         {
-            _controlledBody.localPosition = _controlledBody.localPosition.WithX(Mathf.Clamp(_controlledBody.position.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
+            _controlledBody.localPosition = _controlledBody.localPosition.WithX(Mathf.Clamp(_controlledBody.localPosition.x + ScreenInputAxis.Instance.Delta.x * _maxHorizontalSpeed,
                 _leftMovementConstraint, _rightMovementConstraint));
         }
 
