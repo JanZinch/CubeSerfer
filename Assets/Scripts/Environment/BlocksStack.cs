@@ -12,13 +12,16 @@ namespace Environment
     public class BlocksStack : MonoBehaviour
     {
         [SerializeField] private UnityEvent<Block> _onBlockAdded;
-
+        [SerializeField] private UnityEvent<Block> _onBlockRemoved;
+        
         [SerializeField] private List<Block> _initialBlocks;
         
         private LinkedList<Block> _blocks;
 
         public UnityEvent<Block> OnBlockAdded => _onBlockAdded;
-
+        public UnityEvent<Block> OnBlockRemoved => _onBlockRemoved;
+        
+        
         private Tween _allCollisionsWait;
         private Tween _afterCollisionDelay;
         
@@ -51,7 +54,7 @@ namespace Environment
             }
         }
 
-        public void Add(Block block)
+        private void Add(Block block)
         {
             block.transform.SetParent(transform);
             block.transform.SetSiblingIndex(1);
@@ -61,23 +64,56 @@ namespace Environment
             
             OnBlockAdded?.Invoke(block);
             
-            int i = 0;
+            /*int i = 0;
             
             foreach (var blo in _blocks)
             {
                 Debug.Log("i: " + (i++) + " name: " + blo.gameObject.name);
+            }*/
+        }
+
+        private void Remove(Block block)
+        {
+            LinkedListNode<Block> foundNode = _blocks.Find(block);
+
+            if (foundNode == null)
+            {
+                Debug.LogWarning("Block doesn't contain in stack");
+            }
+            else
+            {
+                if (foundNode.Previous != null && foundNode.Next != null)
+                {
+                    foundNode.Previous.Value.AttachTo(foundNode.Next.Value);
+                }
+                else if (foundNode.Previous == null && foundNode.Next != null)
+                {
+                    //foundNode.Next.Value.PutCharacter();
+                }
+                else if (foundNode.Previous != null && foundNode.Next == null)
+                {
+                    foundNode.Previous.Value.Detach();
+                }
+                
+                _blocks.Remove(foundNode);
+                block.Lose();
+                
+                OnBlockRemoved?.Invoke(block);
             }
         }
 
+
         private void OnBlockCollided(Block block)
         {
-            if (_afterCollisionDelay != null)
+            /*if (_afterCollisionDelay != null)
                 return;
             
             if (_allCollisionsWait == null)
             {
                 _allCollisionsWait = DOVirtual.DelayedCall(Time.fixedDeltaTime * 2.0f, OnStackCollided);
-            }
+            }*/
+            
+            Remove(block);
         }
 
         private void OnStackCollided()

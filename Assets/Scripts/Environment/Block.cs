@@ -20,9 +20,10 @@ namespace Environment
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.CompareTag("Obstacle"))
+            if (other.gameObject.TryGetComponent<WallLevel>(out WallLevel wallLevel) && !wallLevel.IsCollided)
             {
                 IsCollided = true;
+                wallLevel.IsCollided = true;
                 OnCollidedWithObstacle?.Invoke(this);
             }
         }
