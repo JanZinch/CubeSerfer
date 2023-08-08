@@ -1,5 +1,6 @@
 ﻿using System;
 using Controllers;
+using Environment.Obstacles;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,10 +23,10 @@ namespace Environment
 
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.TryGetComponent<WallLevel>(out WallLevel wallLevel) && !wallLevel.IsCollided)
+            if (other.gameObject.TryGetComponent<ObstacleBlock>(out ObstacleBlock obstacleBlock) && !obstacleBlock.IsCollided)
             {
                 IsCollided = true;
-                wallLevel.IsCollided = true;
+                obstacleBlock.Collide();
                 OnCollidedWithObstacle?.Invoke(this);
             }
             else if (other.gameObject.TryGetComponent<Deep>(out Deep deep))
