@@ -405,7 +405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 40107426}
   _meshRenderer: {fileID: 40107428}
   _onCollidedWithObstacle:
@@ -628,7 +627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 81433149}
   _meshRenderer: {fileID: 81433151}
   _onCollidedWithObstacle:
@@ -844,7 +842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 104187138}
   _meshRenderer: {fileID: 104187140}
   _onCollidedWithObstacle:
@@ -2246,7 +2243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 530371231}
   _meshRenderer: {fileID: 530371233}
   _onCollidedWithObstacle:
@@ -2891,7 +2887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 687116996}
   _meshRenderer: {fileID: 687116998}
   _onCollidedWithObstacle:
@@ -3333,7 +3328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 720874468}
   _meshRenderer: {fileID: 720874470}
   _onCollidedWithObstacle:
@@ -3549,7 +3543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 754535420}
   _meshRenderer: {fileID: 754535422}
   _onCollidedWithObstacle:
@@ -3682,7 +3675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 801905884}
   _meshRenderer: {fileID: 801905886}
   _onCollidedWithObstacle:
@@ -3898,7 +3890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 819720565}
   _meshRenderer: {fileID: 819720567}
   _onCollidedWithObstacle:
@@ -4197,7 +4188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 894515922}
   _meshRenderer: {fileID: 894515924}
   _onCollidedWithObstacle:
@@ -4413,7 +4403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 929357283}
   _meshRenderer: {fileID: 929357285}
   _onCollidedWithObstacle:
@@ -4546,7 +4535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 938843747}
   _meshRenderer: {fileID: 938843749}
   _onCollidedWithObstacle:
@@ -4679,7 +4667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 954312783}
   _meshRenderer: {fileID: 954312785}
   _onCollidedWithObstacle:
@@ -5059,7 +5046,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 963561962}
   _meshRenderer: {fileID: 963561964}
   _onCollidedWithObstacle:
@@ -5621,7 +5607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1010108087}
   _meshRenderer: {fileID: 1010108089}
   _onCollidedWithObstacle:
@@ -5882,7 +5867,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1070306916}
   _meshRenderer: {fileID: 1070306918}
   _onCollidedWithObstacle:
@@ -6444,7 +6428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1220588189}
   _meshRenderer: {fileID: 1220588191}
   _onCollidedWithObstacle:
@@ -6994,7 +6977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1285557983}
   _meshRenderer: {fileID: 1285557985}
   _onCollidedWithObstacle:
@@ -7960,7 +7942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1471066250}
   _meshRenderer: {fileID: 1471066252}
   _onCollidedWithObstacle:
@@ -8160,7 +8141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5063401684558616917, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 2.18
       objectReference: {fileID: 0}
     - target: {fileID: 5063401684558616917, guid: 0025057fc7975d441a97d7ddeeacb8bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8612,7 +8593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1605301158}
   _meshRenderer: {fileID: 1605301160}
   _onCollidedWithObstacle:
@@ -8828,7 +8808,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1687539598}
   _meshRenderer: {fileID: 1687539600}
   _onCollidedWithObstacle:
@@ -9224,7 +9203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 1743690224}
   _meshRenderer: {fileID: 1743690226}
   _onCollidedWithObstacle:
@@ -10321,6 +10299,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028371912}
   m_Mesh: {fileID: -5495902117074765545, guid: fd25edf0dc24d4aed96cd5419e65e154, type: 3}
+--- !u!54 &2040359577 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7299970864780983058, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+  m_PrefabInstance: {fileID: 7898718366212850533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2050282368
 GameObject:
   m_ObjectHideFlags: 0
@@ -10354,7 +10337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 2050282370}
   _meshRenderer: {fileID: 2050282372}
   _onCollidedWithObstacle:
@@ -10792,7 +10774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 2086671295}
   _meshRenderer: {fileID: 2086671297}
   _onCollidedWithObstacle:
@@ -11136,7 +11117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b5f77752894f18882722addf10199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 0}
   _rigidbody: {fileID: 2142592779}
   _meshRenderer: {fileID: 2142592781}
   _onCollidedWithObstacle:
@@ -11467,6 +11447,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7898718366956779144, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 2040359577}
     - target: {fileID: 7898718367075022880, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_Name
       value: player

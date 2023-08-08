@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using System;
+using Controllers;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,17 +7,18 @@ namespace Environment
 {
     public class Block : MonoBehaviour
     {
-        [SerializeField] private Joint _joint;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private MeshRenderer _meshRenderer;
         
         [HideInInspector] [SerializeField] private UnityEvent<Block> _onCollidedWithObstacle;
-
+        
         public UnityEvent<Block> OnCollidedWithObstacle => _onCollidedWithObstacle;
         
         public bool IsCollided { get; private set; }
 
         public Rigidbody Body => _rigidbody;
+
+        private Joint _joint;
 
         private void OnCollisionEnter(Collision other)
         {
@@ -59,7 +61,7 @@ namespace Environment
             character.transform.position = GetAttachingPosition();
             character.transform.rotation = Quaternion.identity;
             
-            character.Joint = AddConfiguredJoint(character.gameObject, _rigidbody);
+            character.OnAttachInject(this, AddConfiguredJoint(character.gameObject, _rigidbody));
         }
 
         private Vector3 GetAttachingPosition()

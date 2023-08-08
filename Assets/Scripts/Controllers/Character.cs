@@ -10,27 +10,44 @@ namespace Controllers
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private BlocksStack _blocksStack;
 
-        public Joint Joint;
+        private Block _baseBlock;
+        public Joint Joint => _joint;
         public Rigidbody Rigidbody => _rigidbody;
-
-        private void Awake()
-        {
-            Joint = _joint;
-        }
 
         private void OnEnable()
         {
-            _blocksStack.OnBlockAdded.AddListener(MoveUp);
+            _blocksStack.OnBlockAdded.AddListener(OnBlockAdded);
+            _blocksStack.OnBlockRemoved.AddListener(OnBlockRemoved);
+        }
+        
+        private void Start()
+        {
+            _baseBlock = _blocksStack.Top;
         }
 
-        private void MoveUp(Block upperBlock)
+        private void OnBlockAdded(Block newBaseBlock)
         {
-            upperBlock.PutCharacter(this);
+            newBaseBlock.PutCharacter(this);
+        }
+
+        public void OnAttachInject(Block baseBlock, Joint joint)
+        {
+            _baseBlock = baseBlock;
+            _joint = joint;
+        }
+
+        private void OnBlockRemoved(Block block)
+        {
+            if (_baseBlock == block)
+            {
+                _blocksStack.Top.PutCharacter(this);
+            }
         }
 
         private void OnDisable()
         {
-            _blocksStack.OnBlockAdded.RemoveListener(MoveUp);
+            _blocksStack.OnBlockRemoved.RemoveListener(OnBlockRemoved);
+            _blocksStack.OnBlockAdded.RemoveListener(OnBlockAdded);
         }
     }
 }

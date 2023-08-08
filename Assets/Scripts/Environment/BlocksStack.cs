@@ -24,18 +24,29 @@ namespace Environment
         
         private Tween _allCollisionsWait;
         private Tween _afterCollisionDelay;
+
+        public Block Top => _blocks.First.Value;
+        
         
         private void Awake()
         {
             _blocks = new LinkedList<Block>(_initialBlocks);
             
+            for (LinkedListNode<Block> node = _blocks.First; node != null; node = node.Next){
+
+                if (node.Next != null)
+                {
+                    node.Value.AttachTo(node.Next.Value);
+                }
+            }
             
-            int i = 0;
+            
+            /*int i = 0;
             
             foreach (var block in _blocks)
             {
                 Debug.Log("i: " + (i++) + " name: " + block.gameObject.name);
-            }
+            }*/
         }
 
         private void OnEnable()
