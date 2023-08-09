@@ -71,6 +71,7 @@ namespace Environment
             block.transform.SetSiblingIndex(1);
             
             block.AttachTo(_blocks.First.Value);
+            block.OnCollidedWithObstacle.AddListener(OnBlockCollided);
             _blocks.AddFirst(block);
             
             OnBlockAdded?.Invoke(block);
@@ -106,8 +107,10 @@ namespace Environment
                     foundNode.Previous.Value.Detach();
                 }
                 
-                _blocks.Remove(foundNode);
+                block.OnCollidedWithObstacle.RemoveListener(OnBlockCollided);
                 block.Lose();
+                
+                _blocks.Remove(foundNode);
                 
                 OnBlockRemoved?.Invoke(block);
             }
