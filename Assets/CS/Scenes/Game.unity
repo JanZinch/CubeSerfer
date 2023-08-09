@@ -346,7 +346,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d78d771709a4eb9871701001868ed3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
+  _onFingerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFingerUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &59114484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3257,133 +3262,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 2.5, z: 20}
   m_Center: {x: 0, y: -1.25, z: 10}
---- !u!1 &1282129128 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7898718367075022880, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-  m_PrefabInstance: {fileID: 7898718366212850533}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1282129130 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7898718367075022883, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-  m_PrefabInstance: {fileID: 7898718366212850533}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1282129131
+--- !u!114 &1282129131 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1282129131, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+  m_PrefabInstance: {fileID: 7898718366212850533}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282129128}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ddc1a2536715a24095c464a2c394d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateMethod: 0
-  _spline: {fileID: 1447356515}
-  _autoUpdate: 1
-  _rotationModifier:
-    blend: 1
-    useClippedPercent: 0
-    keys: []
-  _offsetModifier:
-    blend: 1
-    useClippedPercent: 0
-    keys: []
-  _colorModifier:
-    blend: 1
-    useClippedPercent: 0
-    keys: []
-  _sizeModifier:
-    blend: 1
-    useClippedPercent: 0
-    keys: []
-  _clipFromSample:
-    position: {x: 0, y: 0.5, z: -1.91}
-    up: {x: 0, y: 1, z: 0}
-    forward: {x: 0, y: 0.00000034752213, z: -1}
-    color: {r: 1, g: 0, b: 0, a: 1}
-    size: 1
-    percent: 0
-  _clipToSample:
-    position: {x: -79.289925, y: 0.5, z: 88.5}
-    up: {x: 0, y: 1, z: 0}
-    forward: {x: -1, y: 0, z: 0}
-    color: {r: 1, g: 0, b: 0, a: 1}
-    size: 1
-    percent: 1
-  _loopSamples: 0
-  _clipFrom: 0
-  _clipTo: 1
-  animClipFrom: 0
-  animClipTo: 1
-  multithreaded: 0
-  buildOnAwake: 1
-  buildOnEnable: 0
-  applyDirectionRotation: 1
-  useTriggers: 0
-  triggerGroup: 0
-  _direction: 1
-  _dontLerpDirection: 0
-  _physicsMode: 0
-  _motion:
-    _hasOffset: 0
-    _hasRotationOffset: 0
-    _offset: {x: 0, y: 0}
-    _rotationOffset: {x: 0, y: 0, z: 0}
-    _baseScale: {x: 1, y: 1, z: 1}
-    _2dMode: 0
-    velocityHandleMode: 0
-    applyPositionX: 1
-    applyPositionY: 1
-    applyPositionZ: 1
-    applyPosition2D: 1
-    retainLocalPosition: 0
-    direction: 1
-    applyRotationX: 1
-    applyRotationY: 1
-    applyRotationZ: 1
-    applyRotation2D: 1
-    retainLocalRotation: 0
-    applyScaleX: 0
-    applyScaleY: 0
-    applyScaleZ: 0
-    targetUser: {fileID: 1282129131}
-  targetRigidbody: {fileID: 0}
-  targetRigidbody2D: {fileID: 0}
-  targetTransform: {fileID: 1282129130}
-  _result:
-    position: {x: 0.002564004, y: 0.50000006, z: 1.15028}
-    up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.0008071686, y: 0.0000000044941673, z: 0.99999964}
-    color: {r: 1, g: 0, b: 0, a: 1}
-    size: 1
-    percent: 0.03999999910593033
-  _finalResult:
-    position: {x: 0.002564004, y: 0.50000006, z: 1.15028}
-    up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.0008071686, y: 0.0000000044941673, z: 0.99999964}
-    color: {r: 1, g: 0, b: 0, a: 1}
-    size: 1
-    percent: 0.03999999910593033
-  wrapMode: 0
-  followMode: 0
-  autoStartPosition: 0
-  _follow: 1
-  _startPosition: 0.03999999910593033
-  preserveUniformSpeedWithOffset: 0
-  _followSpeed: 5
-  _followDuration: 1
-  _speedModifier:
-    blend: 1
-    useClippedPercent: 0
-    keys: []
-  _unityOnEndReached:
-    m_PersistentCalls:
-      m_Calls: []
-  _unityOnBeginningReached:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1285557981
 GameObject:
   m_ObjectHideFlags: 0
@@ -4574,11 +4463,6 @@ Transform:
   m_Father: {fileID: 1372280071}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2040359577 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7299970864780983058, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-  m_PrefabInstance: {fileID: 7898718366212850533}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2050282368
 GameObject:
   m_ObjectHideFlags: 0
@@ -5595,33 +5479,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7898718365943617303, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7898718366956779144, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: m_ConnectedBody
+    - target: {fileID: 1282129131, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+      propertyPath: _spline
       value: 
-      objectReference: {fileID: 2040359577}
+      objectReference: {fileID: 1447356515}
     - target: {fileID: 7898718367075022880, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7898718367075022882, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: _pathCreator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7898718367075022882, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: _forwardSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7898718367075022882, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: _pathPointsParent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7898718367075022882, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: _maxHorizontalSpeed
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7898718367075022883, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_RootOrder
@@ -5688,8 +5552,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &8111789775055818932
-BoxCollider:
+--- !u!64 &8111789775055818932
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5698,9 +5562,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0000005, y: 1.25, z: 20.000004}
-  m_Center: {x: 0, y: 0.625, z: 10.000002}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7172463518141196987, guid: fd25edf0dc24d4aed96cd5419e65e154, type: 3}
 --- !u!1 &8218844438001474546
 GameObject:
   m_ObjectHideFlags: 0
