@@ -1,5 +1,5 @@
 ﻿using System;
-using TMPro;
+using DG.Tweening;
 using UnityEngine;
 
 namespace UI
@@ -8,32 +8,34 @@ namespace UI
     {
         public static GemsUIDistributor Instance { get; private set; }
         
-        [SerializeField] private RectTransform _gemIconPrefab;
         [SerializeField] private Camera _camera;
-        [SerializeField] private TextMeshProUGUI _gemsCounter;
-        
-        private int _fakeGemsCounter;
+        [SerializeField] private RectTransform _gemIconPrefab;
+        [SerializeField] private GemsCounter _gemsCounter;
 
+        [Space]
+        [SerializeField] private float _gemsFlyingDuration = 1.0f;
+        [SerializeField] private Ease _gemsFlyingEase = Ease.OutCubic;
+        
         private void Awake()
         {
             Instance = this;
         }
-
-        private void AddGem()
-        {
-            _fakeGemsCounter++;
-            _gemsCounter.SetText(_fakeGemsCounter.ToString());
-        }
-
-        public void LaunchGemToCounter(Vector3 sourceGemWorldPosition)
+        
+        public void LaunchGemToCounter(Vector3 sourceGemWorldPosition, Action onCounterReached = null)
         {
             Vector2 gemViewportPoint = _camera.WorldToViewportPoint(sourceGemWorldPosition);
             
             RectTransform gemIcon = Instantiate(_gemIconPrefab, transform, false);
             gemIcon.anchorMin = gemIcon.anchorMax = gemViewportPoint;
+            
+            gemIcon.DOMove(_gemsCounter.FlyingGemsTarget.position, _gemsFlyingDuration).SetEase(_gemsFlyingEase)
+                .OnComplete(() =>
+                {
+                    _gemsCounter.AddGem();
+                    onCounterReached?.Invoke();
+                })
+                .SetLink(gameObject);
         }
-
-
-
+        
     }
 }

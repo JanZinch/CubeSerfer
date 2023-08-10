@@ -12,12 +12,17 @@ namespace Environment.Collectables
         private void Start()
         {
             transform.DOLocalRotate(new Vector3(0.0f, 360.0f, 0.0f), _rotationSpeed, RotateMode.FastBeyond360)
-                .SetSpeedBased().SetEase(Ease.Linear).SetLoops(-1).SetLink(gameObject);
+                .SetSpeedBased().SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart).SetLink(gameObject);
         }
 
         public void Collect()
         {
-            GemsUIDistributor.Instance.LaunchGemToCounter(transform.position);
+            GemsUIDistributor.Instance.LaunchGemToCounter(transform.position, SelfDestroy);
+        }
+
+        private void SelfDestroy()
+        {
+            Destroy(gameObject);
         }
     }
 }
