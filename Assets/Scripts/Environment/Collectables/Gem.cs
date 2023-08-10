@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UI;
 using UnityEngine;
 
@@ -17,7 +16,8 @@ namespace Environment.Collectables
 
         public void Collect()
         {
-            GemsUIDistributor.Instance.LaunchGemToCounter(transform.position, SelfDestroy);
+            GemsUIDistributor.Instance.LaunchGemToCounter(transform.position);
+            SelfDestroy();
         }
 
         private void SelfDestroy()
@@ -25,4 +25,4 @@ namespace Environment.Collectables
             Destroy(gameObject);
         }
     }
-}
+} 

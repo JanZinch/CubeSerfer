@@ -32,6 +32,7 @@ namespace UI
                 .OnComplete(() =>
                 {
                     _gemsCounter.AddGem();
+                    Destroy(gemIcon.gameObject);
                     onCounterReached?.Invoke();
                 })
                 .SetLink(gameObject);
