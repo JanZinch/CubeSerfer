@@ -3,6 +3,7 @@ using Controllers;
 using Environment.Obstacles;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Environment
 {
@@ -12,8 +13,12 @@ namespace Environment
         [SerializeField] private MeshRenderer _meshRenderer;
         
         [HideInInspector] [SerializeField] private UnityEvent<Block> _onCollidedWithObstacle;
+        [HideInInspector] [SerializeField] private UnityEvent<Block> _onGrounded;
+        [HideInInspector] [SerializeField] private UnityEvent<Block> _onUngrounded;
         
         public UnityEvent<Block> OnCollidedWithObstacle => _onCollidedWithObstacle;
+        public UnityEvent<Block> OnGrounded => _onGrounded;
+        public UnityEvent<Block> OnUngrounded => _onUngrounded;
         
         public bool IsCollided { get; private set; }
 
@@ -34,6 +39,18 @@ namespace Environment
                 IsCollided = true;
                 OnCollidedWithObstacle?.Invoke(this);
                 Destroy(gameObject);
+            }
+            else if (other.gameObject.CompareTag("Track"))
+            {
+                OnGrounded?.Invoke(this);
+            }
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.CompareTag("Track"))
+            {
+                OnUngrounded?.Invoke(this);
             }
         }
 

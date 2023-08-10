@@ -7,6 +7,7 @@ TagManager:
   - Obstacle
   - UpdatabaleBlock
   - ObstacleBlock
+  - Track
   layers:
   - Default
   - TransparentFX

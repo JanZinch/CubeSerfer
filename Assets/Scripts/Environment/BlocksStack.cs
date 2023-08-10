@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,22 +7,17 @@ namespace Environment
     [RequireComponent(typeof(Collider))]
     public class BlocksStack : MonoBehaviour
     {
+        [SerializeField] private List<Block> _initialBlocks;
         [SerializeField] private UnityEvent<Block> _onBlockAdded;
         [SerializeField] private UnityEvent<Block> _onBlockRemoved;
-        
-        [SerializeField] private List<Block> _initialBlocks;
+        [SerializeField] private TrailRenderer _trail;
         
         private LinkedList<Block> _blocks;
 
         public UnityEvent<Block> OnBlockAdded => _onBlockAdded;
         public UnityEvent<Block> OnBlockRemoved => _onBlockRemoved;
         
-        
-        private Tween _allCollisionsWait;
-        private Tween _afterCollisionDelay;
-
         public Block Top => _blocks.First.Value;
-        
         
         private void Awake()
         {
@@ -39,14 +30,6 @@ namespace Environment
                     node.Value.AttachTo(node.Next.Value);
                 }
             }
-            
-            
-            /*int i = 0;
-            
-            foreach (var block in _blocks)
-            {
-                Debug.Log("i: " + (i++) + " name: " + block.gameObject.name);
-            }*/
         }
 
         private void OnEnable()
@@ -55,6 +38,8 @@ namespace Environment
             {
                 block.OnCollidedWithObstacle.AddListener(OnBlockCollided);
             }
+            
+            MarkAsLast(_blocks.Last.Value);
         }
 
         public void OnTriggerEnter(Collider other)
@@ -75,13 +60,6 @@ namespace Environment
             _blocks.AddFirst(block);
             
             OnBlockAdded?.Invoke(block);
-            
-            /*int i = 0;
-            
-            foreach (var blo in _blocks)
-            {
-                Debug.Log("i: " + (i++) + " name: " + blo.gameObject.name);
-            }*/
         }
 
         private void Remove(Block block)
@@ -105,6 +83,8 @@ namespace Environment
                 else if (foundNode.Previous != null && foundNode.Next == null)
                 {
                     foundNode.Previous.Value.Detach();
+                    UnmarkAsLast(foundNode.Value);
+                    MarkAsLast(foundNode.Previous.Value);
                 }
                 
                 block.OnCollidedWithObstacle.RemoveListener(OnBlockCollided);
@@ -119,48 +99,35 @@ namespace Environment
 
         private void OnBlockCollided(Block block)
         {
-            /*if (_afterCollisionDelay != null)
-                return;
-            
-            if (_allCollisionsWait == null)
-            {
-                _allCollisionsWait = DOVirtual.DelayedCall(Time.fixedDeltaTime * 2.0f, OnStackCollided);
-            }*/
-            
             Remove(block);
         }
 
-        private void OnStackCollided()
+        private void MarkAsLast(Block block)
         {
-            Block newMovable = _blocks.Last((block) => !block.IsCollided);
+            block.OnGrounded.AddListener(OnBlockGrounded);
+            block.OnUngrounded.AddListener(OnBlockUngrounded);
+        }
 
-            Debug.Log("New movable: " + newMovable.gameObject.name);
-            
-            Block topCollided = _blocks.First((block) => block.IsCollided);         // TODO убрать
-            Debug.Log("Top collided: " + topCollided.gameObject.name);
+        private void UnmarkAsLast(Block block)
+        {
+            block.OnGrounded.RemoveListener(OnBlockGrounded);
+            block.OnUngrounded.RemoveListener(OnBlockUngrounded);
+        }
 
-            IEnumerable<Block> lostBlocks = _blocks.SkipWhile((block) => !block.IsCollided);
+        private void OnBlockGrounded(Block block)
+        {
+            _trail.emitting = true;
+        }
 
-            foreach (Block block in lostBlocks)
-            {
-                block.Lose();
-            }
-            
-            //topCollided.Lose();
-            
-            //newMovable.SetMovable(true);
-            newMovable.Detach();
-            
-            
-            _allCollisionsWait = null;
-            _afterCollisionDelay = DOVirtual.DelayedCall(2.0f, () =>
-            {
-                _afterCollisionDelay.Kill();
-            });
+        private void OnBlockUngrounded(Block block)
+        {
+            _trail.emitting = false;
         }
 
         private void OnDisable()
         {
+            UnmarkAsLast(_blocks.Last.Value);
+            
             foreach (Block block in _blocks)
             {
                 block.OnCollidedWithObstacle.RemoveListener(OnBlockCollided);
