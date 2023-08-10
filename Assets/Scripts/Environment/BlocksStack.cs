@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Environment.Collectables;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -44,9 +45,13 @@ namespace Environment
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<Block>(out Block otherBlock) && !_blocks.Contains(otherBlock))
+            if (other.TryGetComponent<Block>(out Block block) && !_blocks.Contains(block))
             {
-                Add(otherBlock);
+                Add(block);
+            }
+            else if (other.TryGetComponent<Gem>(out Gem gem))
+            {
+                gem.Collect();
             }
         }
 
