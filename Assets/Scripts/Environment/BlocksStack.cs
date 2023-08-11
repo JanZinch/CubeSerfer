@@ -122,11 +122,15 @@ namespace Environment
 
         private void OnBlockGrounded(Block block)
         {
+            _trail.transform.SetParent(block.TrailPivot);
+            _trail.transform.localPosition = Vector3.zero;
             _trail.emitting = true;
+            
         }
 
         private void OnBlockUngrounded(Block block)
         {
+            _trail.transform.SetParent(transform);
             _trail.emitting = false;
         }
 

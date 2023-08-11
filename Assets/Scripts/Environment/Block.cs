@@ -11,6 +11,7 @@ namespace Environment
     {
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private Transform _trailPivot;
         
         [HideInInspector] [SerializeField] private UnityEvent<Block> _onCollidedWithObstacle;
         [HideInInspector] [SerializeField] private UnityEvent<Block> _onGrounded;
@@ -19,6 +20,8 @@ namespace Environment
         public UnityEvent<Block> OnCollidedWithObstacle => _onCollidedWithObstacle;
         public UnityEvent<Block> OnGrounded => _onGrounded;
         public UnityEvent<Block> OnUngrounded => _onUngrounded;
+
+        public Transform TrailPivot => _trailPivot;
         
         public bool IsCollided { get; private set; }
         
