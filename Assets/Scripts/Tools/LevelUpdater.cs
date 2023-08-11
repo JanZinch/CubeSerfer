@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Environment;
 using Environment.Obstacles;
+using UnityEditor;
 
 namespace Tools
 {
@@ -8,29 +9,31 @@ namespace Tools
     {
         [SerializeField] private Block _blockPrefab;
         [SerializeField] private ObstacleBlock _obstacleBlockPrefab;
-        
+
+        private void ReplaceWithPrefab(string objectsTag, GameObject prefab)
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(objectsTag);
+
+            foreach (var obj in objects)
+            {
+                GameObject prefabInstance = (GameObject) PrefabUtility.InstantiatePrefab(prefab);
+                prefabInstance.transform.parent = obj.transform.parent;
+                prefabInstance.transform.localPosition = obj.transform.localPosition;
+                prefabInstance.transform.localRotation = obj.transform.localRotation;
+                DestroyImmediate(obj.gameObject);
+            }
+        }
+
         [EasyButtons.Button]
         public void UpdateCollectableBlocks()
         {
-            GameObject[] updatabaleBlocks = GameObject.FindGameObjectsWithTag("UpdatabaleBlock");
-
-            foreach (var block in updatabaleBlocks)
-            {
-                Instantiate(_blockPrefab, block.transform.position, Quaternion.identity);
-                DestroyImmediate(block.gameObject);
-            }
+            ReplaceWithPrefab("UpdatableBlock", _blockPrefab.gameObject);
         }
 
         [EasyButtons.Button]
         public void UpdateObstacleBlocks()
         {
-            GameObject[] updatabaleBlocks = GameObject.FindGameObjectsWithTag("ObstacleBlock");
-
-            foreach (var block in updatabaleBlocks)
-            {
-                Instantiate(_obstacleBlockPrefab, block.transform.position, Quaternion.identity);
-                DestroyImmediate(block.gameObject);
-            }
+            ReplaceWithPrefab("ObstacleBlock", _obstacleBlockPrefab.gameObject);
         }
         
     }
