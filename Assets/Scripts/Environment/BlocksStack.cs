@@ -88,6 +88,7 @@ namespace Environment
                 else if (foundNode.Previous != null && foundNode.Next == null)
                 {
                     foundNode.Previous.Value.Detach();
+                    OnBlockUngrounded(block);
                     UnmarkAsLast(foundNode.Value);
                     MarkAsLast(foundNode.Previous.Value);
                 }

@@ -51,11 +51,13 @@ namespace Environment
                 }
             }
         }
-
+        
         private void OnCollisionExit(Collision other)
         {
             if (other.gameObject.CompareTag("Track") && other.gameObject == _usedTrack)
             {
+                Debug.Log("Ungrounded");
+                
                 _usedTrack = null;
                 OnUngrounded?.Invoke(this);
             }
