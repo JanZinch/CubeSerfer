@@ -21,14 +21,14 @@ namespace Environment
         public UnityEvent<Block> OnUngrounded => _onUngrounded;
         
         public bool IsCollided { get; private set; }
-
-        public Rigidbody Body => _rigidbody;
-
+        
         private Joint _joint;
-
+        private GameObject _usedTrack;
+        
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.TryGetComponent<ObstacleBlock>(out ObstacleBlock obstacleBlock) && !obstacleBlock.IsCollided)
+            if (other.gameObject.TryGetComponent<ObstacleBlock>(out ObstacleBlock obstacleBlock) 
+                && !obstacleBlock.IsCollided)
             {
                 IsCollided = true;
                 obstacleBlock.Collide();
@@ -42,14 +42,21 @@ namespace Environment
             }
             else if (other.gameObject.CompareTag("Track"))
             {
-                OnGrounded?.Invoke(this);
+                bool alreadyGrounded = _usedTrack != null;
+                _usedTrack = other.gameObject;
+                
+                if (!alreadyGrounded)
+                {
+                    OnGrounded?.Invoke(this);
+                }
             }
         }
 
         private void OnCollisionExit(Collision other)
         {
-            if (other.gameObject.CompareTag("Track"))
+            if (other.gameObject.CompareTag("Track") && other.gameObject == _usedTrack)
             {
+                _usedTrack = null;
                 OnUngrounded?.Invoke(this);
             }
         }
@@ -101,6 +108,7 @@ namespace Environment
             joint.yDrive = new JointDrive()
             {
                 positionSpring = 1000.0f,
+                positionDamper = 100.0f,
                 maximumForce = float.MaxValue,
             };
             
