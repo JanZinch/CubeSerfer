@@ -17,9 +17,10 @@ namespace Environment
 
         public UnityEvent<Block> OnBlockAdded => _onBlockAdded;
         public UnityEvent<Block> OnBlockRemoved => _onBlockRemoved;
-        
-        public Block Top => _blocks.First.Value;
-        
+
+        public Block Top => _blocks.Count > 0 ? _blocks.First.Value : null;
+
+
         private void Awake()
         {
             _blocks = new LinkedList<Block>(_initialBlocks);

@@ -1,6 +1,8 @@
 ﻿using System;
 using Environment;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Controllers
 {
@@ -10,10 +12,17 @@ namespace Controllers
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private BlocksStack _blocksStack;
 
-        private Block _baseBlock;
+        [SerializeField] private UnityEvent _onWon;
+        [SerializeField] private UnityEvent _onLost; 
+        
+        public UnityEvent OnWon => _onWon;
+        public UnityEvent OnLost => _onLost;
+        
+        public BlocksStack CollectedBlocksStack => _blocksStack;
         public Joint Joint => _joint;
-        public Rigidbody Rigidbody => _rigidbody;
-
+     
+        private Block _baseBlock;
+        
         private void OnEnable()
         {
             _blocksStack.OnBlockAdded.AddListener(OnBlockAdded);
@@ -30,6 +39,16 @@ namespace Controllers
             newBaseBlock.PutCharacter(this);
         }
 
+        private void Win()
+        {
+            _onWon?.Invoke();
+        }
+
+        private void Lose()
+        {
+            _onLost?.Invoke();
+        }
+
         public void OnAttachInject(Block baseBlock, Joint joint)
         {
             _baseBlock = baseBlock;
@@ -40,7 +59,14 @@ namespace Controllers
         {
             if (_baseBlock == block)
             {
-                _blocksStack.Top.PutCharacter(this);
+                if (_blocksStack.Top != null)
+                {
+                    _blocksStack.Top.PutCharacter(this);
+                }
+                else
+                {
+                    Lose();
+                }
             }
         }
 

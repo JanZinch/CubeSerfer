@@ -1,6 +1,8 @@
-﻿using Dreamteck.Splines;
+﻿using System;
+using Dreamteck.Splines;
 using Extensions;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Controllers
 {
@@ -13,7 +15,18 @@ namespace Controllers
         
         [SerializeField] private SplineFollower _splineFollower;
         [SerializeField] private Transform _controlledBody;
+
+        [SerializeField] private UnityEvent _onPathPassed;
+        public UnityEvent OnPathPassed => _onPathPassed;
         
+        private void OnEnable()
+        {
+            GameStateMachine.Instance.OnWinning += StopMoving;
+            GameStateMachine.Instance.OnLoss += StopMoving;
+
+            _splineFollower.onEndReached += PathPassedInvoke;
+        }
+
         private void Start()
         {
             _splineFollower.followSpeed = 0.0f;
@@ -24,6 +37,11 @@ namespace Controllers
         {
             _splineFollower.followSpeed = _forwardSpeed;
             ScreenInputAxis.Instance.OnFingerDown.RemoveListener(StartMoving);
+        }
+
+        private void StopMoving()
+        {
+            _splineFollower.followSpeed = 0.0f;
         }
 
         private void Update()
@@ -38,6 +56,19 @@ namespace Controllers
                 _leftMovementConstraint, _rightMovementConstraint);
             
             _controlledBody.localPosition = cachedLocalPosition.WithX(x);
+        }
+
+        private void PathPassedInvoke(double d)
+        {
+            OnPathPassed?.Invoke();
+        }
+
+        private void OnDisable()
+        {
+            _splineFollower.onEndReached -= PathPassedInvoke;
+            
+            GameStateMachine.Instance.OnWinning -= StopMoving;
+            GameStateMachine.Instance.OnLoss -= StopMoving;
         }
     }
 }
