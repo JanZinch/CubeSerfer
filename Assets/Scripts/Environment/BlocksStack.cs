@@ -137,8 +137,11 @@ namespace Environment
 
         private void OnDisable()
         {
-            UnmarkAsLast(_blocks.Last.Value);
-            
+            if (_blocks.Count > 0)
+            {
+                UnmarkAsLast(_blocks.Last.Value);
+            }
+
             foreach (Block block in _blocks)
             {
                 block.OnCollidedWithObstacle.RemoveListener(OnBlockCollided);

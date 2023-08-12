@@ -80,8 +80,10 @@ namespace Environment
 
         public void Lose()
         {
-            Destroy(_joint);
+            Detach();
             transform.SetParent(null);
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.centerOfMass = Vector3.zero; 
         }
         
         public void PutCharacter(Character character)
@@ -116,6 +118,8 @@ namespace Environment
                 positionDamper = 100.0f,
                 maximumForce = float.MaxValue,
             };
+
+            joint.enableCollision = true;
             
             joint.xMotion = ConfigurableJointMotion.Locked;
             joint.zMotion = ConfigurableJointMotion.Locked;

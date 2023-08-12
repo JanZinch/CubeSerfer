@@ -46,6 +46,7 @@ namespace Controllers
 
         private void Lose()
         {
+            Destroy(_joint);
             _onLost?.Invoke();
         }
 

@@ -4696,6 +4696,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.10655032
       objectReference: {fileID: 0}
+    - target: {fileID: 7898718366956779144, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7898718367075022880, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_Name
       value: player
