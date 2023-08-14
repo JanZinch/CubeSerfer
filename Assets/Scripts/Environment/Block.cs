@@ -81,7 +81,7 @@ namespace Environment
         public void Lose()
         {
             Detach();
-            transform.SetParent(null);
+            transform.SetParent(null); 
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.centerOfMass = Vector3.zero; 
         }
