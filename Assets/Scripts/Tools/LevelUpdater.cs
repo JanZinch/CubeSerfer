@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using UnityEngine;
 using Environment;
 using Environment.Obstacles;
-using UnityEditor;
 
 namespace Tools
 {
@@ -10,6 +13,8 @@ namespace Tools
         [SerializeField] private Block _blockPrefab;
         [SerializeField] private ObstacleBlock _obstacleBlockPrefab;
 
+#if UNITY_EDITOR
+        
         private void ReplaceWithPrefab(string objectsTag, GameObject prefab)
         {
             GameObject[] objects = GameObject.FindGameObjectsWithTag(objectsTag);
@@ -35,6 +40,7 @@ namespace Tools
         {
             ReplaceWithPrefab("ObstacleBlock", _obstacleBlockPrefab.gameObject);
         }
+#endif
         
     }
 }
