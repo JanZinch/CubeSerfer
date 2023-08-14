@@ -46,7 +46,7 @@ namespace Environment
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<Block>(out Block block) && !_blocks.Contains(block))
+            if (other.TryGetComponent<Block>(out Block block) && !block.IsCollided && !_blocks.Contains(block))
             {
                 Add(block);
             }
