@@ -16,7 +16,7 @@ namespace Environment.Collectables
 
         public void Collect()
         {
-            UIDistributor.Instance.LaunchGemToCounter(transform.position);
+            MainUIDistributor.Instance.LaunchGemToCounter(transform.position);
             SelfDestroy();
         }
 

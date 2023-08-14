@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 118193464}
   - component: {fileID: 118193463}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,7 +613,7 @@ RectTransform:
   - {fileID: 665224697}
   - {fileID: 1479980382}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1936,7 +1936,7 @@ GameObject:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2017,7 +2017,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 54.3, y: -51.8, z: 0}
 --- !u!4 &707708940 stripped
 Transform:
@@ -2382,7 +2382,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1059447815 stripped
 Transform:
@@ -3620,7 +3620,7 @@ Transform:
   - {fileID: 38620434}
   - {fileID: 418938501}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1573848786
 MonoBehaviour:
@@ -4223,7 +4223,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2081223690
 PrefabInstance:
@@ -4935,6 +4935,10 @@ PrefabInstance:
       propertyPath: _result.position.z
       value: 1.15028
       objectReference: {fileID: 0}
+    - target: {fileID: 601384621903140121, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1614700800096406320, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_Parameters.alignment
       value: 1
@@ -4955,9 +4959,13 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.10655032
       objectReference: {fileID: 0}
-    - target: {fileID: 7898718366956779144, guid: 1808299a436482046bb794948e75a1e2, type: 3}
-      propertyPath: m_EnableCollision
-      value: 1
+    - target: {fileID: 7898718366956779147, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898718366956779150, guid: 1808299a436482046bb794948e75a1e2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7898718367075022880, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_Name
@@ -4965,7 +4973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7898718367075022883, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7898718367075022883, guid: 1808299a436482046bb794948e75a1e2, type: 3}
       propertyPath: m_LocalPosition.x

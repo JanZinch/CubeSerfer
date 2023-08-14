@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 5427930107746684980}
   - component: {fileID: 7898718366956779156}
   - component: {fileID: 7898718366956779157}
-  - component: {fileID: 7898718366956779146}
+  - component: {fileID: 601384621903140121}
   - component: {fileID: 7898718366956779147}
   - component: {fileID: 7898718366956779144}
   m_Layer: 0
@@ -397,8 +397,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7898718366956779146
-CapsuleCollider:
+--- !u!65 &601384621903140121
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -407,10 +407,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1, z: 0.5}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!54 &7898718366956779147
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -425,7 +424,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 114
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!153 &7898718366956779144
 ConfigurableJoint:
@@ -519,7 +518,7 @@ ConfigurableJoint:
   m_SwapBodies: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1

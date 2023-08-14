@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace UI
 {
-    public class UIDistributor : MonoBehaviour
+    public class MainUIDistributor : MonoBehaviour
     {
-        public static UIDistributor Instance { get; private set; }
+        public static MainUIDistributor Instance { get; private set; }
         
         [SerializeField] private Camera _camera;
         [SerializeField] private RectTransform _gemIconPrefab;
