@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000fb54521374254b44f8d3f17b062fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _auxiliaryCollider: {fileID: 5819782992501344010}
   _onCollided:
     m_PersistentCalls:
       m_Calls: []

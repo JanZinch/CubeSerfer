@@ -8,7 +8,7 @@ namespace Controllers
 {
     public class Character : MonoBehaviour
     {
-        [SerializeField] private Joint _joint;
+        //[SerializeField] private Joint _joint;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private BlocksStack _blocksStack;
 
@@ -19,7 +19,7 @@ namespace Controllers
         public UnityEvent OnLost => _onLost;
         
         public BlocksStack CollectedBlocksStack => _blocksStack;
-        public Joint Joint => _joint;
+        //public Joint Joint => _joint;
      
         private Block _baseBlock;
         
@@ -46,15 +46,15 @@ namespace Controllers
 
         private void Lose()
         {
-            Destroy(_joint);
+            //Destroy(_joint);
             _onLost?.Invoke();
         }
 
-        public void OnAttachInject(Block baseBlock, Joint joint)
+        /*public void OnAttachInject(Block baseBlock, Joint joint)
         {
             _baseBlock = baseBlock;
             _joint = joint;
-        }
+        }*/
 
         private void OnBlockRemoved(Block block)
         {

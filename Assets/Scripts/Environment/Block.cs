@@ -42,6 +42,8 @@ namespace Environment
                 IsCollided = true;
                 OnCollidedWithObstacle?.Invoke(this);
                 Destroy(gameObject);
+                
+                Debug.Log("Destroyed by deep!");
             }
             else if (other.gameObject.CompareTag("Track"))
             {
@@ -88,12 +90,14 @@ namespace Environment
         
         public void PutCharacter(Character character)
         {
-            Destroy(character.Joint);
+            //Destroy(character.Joint);
             
             character.transform.position = GetAttachingPosition();
             character.transform.rotation = Quaternion.identity;
             
-            character.OnAttachInject(this, AddConfiguredJoint(character.gameObject, _rigidbody));
+            character.transform.SetParent(transform);
+            
+           //character.OnAttachInject(this, AddConfiguredJoint(character.gameObject, _rigidbody));
         }
 
         private Vector3 GetAttachingPosition()
