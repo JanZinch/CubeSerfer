@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace UI
 {
-    public class GemsUIDistributor : MonoBehaviour
+    public class UIDistributor : MonoBehaviour
     {
-        public static GemsUIDistributor Instance { get; private set; }
+        public static UIDistributor Instance { get; private set; }
         
         [SerializeField] private Camera _camera;
         [SerializeField] private RectTransform _gemIconPrefab;
@@ -37,6 +37,5 @@ namespace UI
                 })
                 .SetLink(gameObject);
         }
-        
     }
 }

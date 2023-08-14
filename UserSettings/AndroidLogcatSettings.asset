@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R58M52KZNHR",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "R58M52KZNHR",
+        "name": "com.DefaultCompany.CubeSerfer",
+        "processId": 19556,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,12 @@
             "deviceId": "R58M52KZNHR",
             "name": "com.sec.android.app.launcher",
             "processId": 5482,
+            "exited": false
+        },
+        {
+            "deviceId": "R58M52KZNHR",
+            "name": "com.DefaultCompany.CubeSerfer",
+            "processId": 19556,
             "exited": false
         }
     ],

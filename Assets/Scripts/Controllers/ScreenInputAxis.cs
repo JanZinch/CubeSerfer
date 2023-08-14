@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -22,6 +23,12 @@ namespace Controllers
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Start()
+        {
+            GameStateMachine.Instance.OnWinning += () => { enabled = false; };
+            GameStateMachine.Instance.OnLoss += () => { enabled = false; };
         }
 
         public void OnPointerDown(PointerEventData eventData)

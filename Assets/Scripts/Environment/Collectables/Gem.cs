@@ -16,7 +16,7 @@ namespace Environment.Collectables
 
         public void Collect()
         {
-            GemsUIDistributor.Instance.LaunchGemToCounter(transform.position);
+            UIDistributor.Instance.LaunchGemToCounter(transform.position);
             SelfDestroy();
         }
 
