@@ -1,7 +1,9 @@
 ﻿using System;
 using Controllers;
+using DG.Tweening;
 using Environment.Obstacles;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
@@ -25,10 +27,23 @@ namespace Environment
         
         public bool IsCollided { get; private set; }
         
-        private Joint _joint;
         private GameObject _usedTrack;
-        
+
         private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Track"))
+            {
+                bool alreadyGrounded = _usedTrack != null;
+                _usedTrack = other.gameObject;
+                
+                if (!alreadyGrounded)
+                {
+                    OnGrounded?.Invoke(this);
+                }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent<ObstacleBlock>(out ObstacleBlock obstacleBlock) 
                 && !obstacleBlock.IsCollided)
@@ -45,18 +60,8 @@ namespace Environment
                 
                 Debug.Log("Destroyed by deep!");
             }
-            else if (other.gameObject.CompareTag("Track"))
-            {
-                bool alreadyGrounded = _usedTrack != null;
-                _usedTrack = other.gameObject;
-                
-                if (!alreadyGrounded)
-                {
-                    OnGrounded?.Invoke(this);
-                }
-            }
         }
-        
+
         private void OnCollisionExit(Collision other)
         {
             if (other.gameObject.CompareTag("Track") && other.gameObject == _usedTrack)
@@ -70,24 +75,21 @@ namespace Environment
 
         public void AttachTo(Block other)
         {
-            Destroy(_joint);
             transform.position = other.GetAttachingPosition();
-            _joint = AddConfiguredJoint(gameObject, other._rigidbody);
+            transform.localRotation = Quaternion.identity;
         }
 
         public void Detach()
         {
-            Destroy(_joint);
+            //Destroy(_joint);
         }
 
         public void Lose()
         {
             Detach();
-            transform.SetParent(null); 
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.centerOfMass = Vector3.zero; 
+            transform.SetParent(null);
         }
-        
+
         public void PutCharacter(Character character)
         {
             //Destroy(character.Joint);

@@ -6,6 +6,7 @@ namespace Environment.Obstacles
 {
     public class ObstacleBlock : MonoBehaviour
     {
+        //[SerializeField] private Collider _mainCollider;
         [SerializeField] private Collider _auxiliaryCollider;
         [HideInInspector] [SerializeField] private UnityEvent _onCollided;
         
@@ -17,6 +18,7 @@ namespace Environment.Obstacles
         {
             IsCollided = true;
             _auxiliaryCollider.enabled = false;
+            //_mainCollider.enabled = false;
             OnCollided?.Invoke();
         }
         
