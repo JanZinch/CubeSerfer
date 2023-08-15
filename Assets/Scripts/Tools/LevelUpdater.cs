@@ -3,14 +3,14 @@ using UnityEditor;
 #endif
 
 using UnityEngine;
-using Environment;
+using Environment.Collectables;
 using Environment.Obstacles;
 
 namespace Tools
 {
     public class LevelUpdater : MonoBehaviour
     {
-        [SerializeField] private Block _blockPrefab;
+        [SerializeField] private CollectableBlock _blockPrefab;
         [SerializeField] private ObstacleBlock _obstacleBlockPrefab;
 
 #if UNITY_EDITOR

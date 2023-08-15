@@ -1,6 +1,4 @@
-﻿using System;
-using Extensions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Controllers
 {
@@ -8,9 +6,18 @@ namespace Controllers
     {
         [SerializeField] private float _fixedHeight = 4.0f;
         [SerializeField] private float _fixedHorizontalPoint = 0.0f;
+
+        private Vector3 _cachedPosition;
+        
         private void Update()
         {
-            transform.position = new Vector3(_fixedHorizontalPoint, _fixedHeight, transform.position.z);
+            Transform cachedTransform = transform;
+            
+            _cachedPosition.x = _fixedHorizontalPoint;
+            _cachedPosition.y = _fixedHeight;
+            _cachedPosition.z = cachedTransform.position.z;
+            
+            cachedTransform.position = _cachedPosition;
         }
     }
 }

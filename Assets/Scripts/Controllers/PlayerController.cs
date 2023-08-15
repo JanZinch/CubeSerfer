@@ -1,5 +1,4 @@
-﻿using System;
-using Dreamteck.Splines;
+﻿using Dreamteck.Splines;
 using Extensions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,8 +14,8 @@ namespace Controllers
         
         [SerializeField] private SplineFollower _splineFollower;
         [SerializeField] private Transform _controlledBody;
-
         [SerializeField] private UnityEvent _onPathPassed;
+        
         public UnityEvent OnPathPassed => _onPathPassed;
         
         private void OnEnable()

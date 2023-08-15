@@ -34,7 +34,6 @@ namespace Controllers
         public void OnPointerDown(PointerEventData eventData)
         {
             _state = ScreenState.Captured;
-
             _previousFingerPosition = transform.InverseTransformPoint(Input.mousePosition).normalized;
             
             OnFingerDown?.Invoke();

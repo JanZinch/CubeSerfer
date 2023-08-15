@@ -6,26 +6,25 @@ using UnityEngine.Events;
 namespace Environment
 {
     [RequireComponent(typeof(Collider))]
-    public class BlocksStack : MonoBehaviour
+    public class CollectableBlocksStack : MonoBehaviour
     {
-        [SerializeField] private List<Block> _initialBlocks;
-        [SerializeField] private UnityEvent<Block> _onBlockAdded;
-        [SerializeField] private UnityEvent<Block> _onBlockRemoved;
+        [SerializeField] private List<CollectableBlock> _initialBlocks;
+        [SerializeField] private UnityEvent<CollectableBlock> _onBlockAdded;
+        [SerializeField] private UnityEvent<CollectableBlock> _onBlockRemoved;
         [SerializeField] private TrailRenderer _trail;
         
-        private LinkedList<Block> _blocks;
+        private LinkedList<CollectableBlock> _blocks;
 
-        public UnityEvent<Block> OnBlockAdded => _onBlockAdded;
-        public UnityEvent<Block> OnBlockRemoved => _onBlockRemoved;
+        public UnityEvent<CollectableBlock> OnBlockAdded => _onBlockAdded;
+        public UnityEvent<CollectableBlock> OnBlockRemoved => _onBlockRemoved;
 
-        public Block Top => _blocks.Count > 0 ? _blocks.First.Value : null;
-
-
+        public CollectableBlock Top => _blocks.Count > 0 ? _blocks.First.Value : null;
+        
         private void Awake()
         {
-            _blocks = new LinkedList<Block>(_initialBlocks);
+            _blocks = new LinkedList<CollectableBlock>(_initialBlocks);
             
-            for (LinkedListNode<Block> node = _blocks.First; node != null; node = node.Next){
+            for (LinkedListNode<CollectableBlock> node = _blocks.First; node != null; node = node.Next){
 
                 if (node.Next != null)
                 {
@@ -36,7 +35,7 @@ namespace Environment
 
         private void OnEnable()
         {
-            foreach (Block block in _blocks)
+            foreach (CollectableBlock block in _blocks)
             {
                 block.OnCollidedWithObstacle.AddListener(OnBlockCollided);
             }
@@ -44,19 +43,7 @@ namespace Environment
             MarkAsLast(_blocks.Last.Value);
         }
 
-        public void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent<Block>(out Block block) && !block.IsCollided && !_blocks.Contains(block))
-            {
-                Add(block);
-            }
-            else if (other.TryGetComponent<Gem>(out Gem gem))
-            {
-                gem.Collect();
-            }
-        }
-
-        private void Add(Block block)
+        private void Add(CollectableBlock block)
         {
             block.transform.SetParent(transform);
             block.transform.SetSiblingIndex(1);
@@ -68,9 +55,9 @@ namespace Environment
             OnBlockAdded?.Invoke(block);
         }
 
-        private void Remove(Block block)
+        private void Remove(CollectableBlock block)
         {
-            LinkedListNode<Block> foundNode = _blocks.Find(block);
+            LinkedListNode<CollectableBlock> foundNode = _blocks.Find(block);
 
             if (foundNode == null)
             {
@@ -82,13 +69,8 @@ namespace Environment
                 {
                     foundNode.Previous.Value.AttachTo(foundNode.Next.Value);
                 }
-                else if (foundNode.Previous == null && foundNode.Next != null)
-                {
-                    //foundNode.Next.Value.PutCharacter();
-                }
                 else if (foundNode.Previous != null && foundNode.Next == null)
                 {
-                    foundNode.Previous.Value.Detach();
                     OnBlockUngrounded(block);
                     UnmarkAsLast(foundNode.Value);
                     MarkAsLast(foundNode.Previous.Value);
@@ -102,39 +84,49 @@ namespace Environment
                 OnBlockRemoved?.Invoke(block);
             }
         }
-
-
-        private void OnBlockCollided(Block block)
+        
+        private void OnBlockCollided(CollectableBlock block)
         {
             Remove(block);
         }
 
-        private void MarkAsLast(Block block)
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent<CollectableBlock>(out CollectableBlock block) && !block.IsCollided && !_blocks.Contains(block))
+            {
+                Add(block);
+            }
+            else if (other.TryGetComponent<Gem>(out Gem gem))
+            {
+                gem.Collect();
+            }
+        }
+        
+        private void OnBlockGrounded(CollectableBlock block)
+        {
+            _trail.transform.SetParent(block.TrailPivot);
+            _trail.transform.localPosition = Vector3.zero;
+            _trail.emitting = true;
+        }
+
+        private void OnBlockUngrounded(CollectableBlock block)
+        {
+            _trail.transform.SetParent(transform);
+            _trail.emitting = false;
+        }
+        
+        private void MarkAsLast(CollectableBlock block)
         {
             block.OnGrounded.AddListener(OnBlockGrounded);
             block.OnUngrounded.AddListener(OnBlockUngrounded);
         }
 
-        private void UnmarkAsLast(Block block)
+        private void UnmarkAsLast(CollectableBlock block)
         {
             block.OnGrounded.RemoveListener(OnBlockGrounded);
             block.OnUngrounded.RemoveListener(OnBlockUngrounded);
         }
-
-        private void OnBlockGrounded(Block block)
-        {
-            _trail.transform.SetParent(block.TrailPivot);
-            _trail.transform.localPosition = Vector3.zero;
-            _trail.emitting = true;
-            
-        }
-
-        private void OnBlockUngrounded(Block block)
-        {
-            _trail.transform.SetParent(transform);
-            _trail.emitting = false;
-        }
-
+        
         private void OnDisable()
         {
             if (_blocks.Count > 0)
@@ -142,12 +134,11 @@ namespace Environment
                 UnmarkAsLast(_blocks.Last.Value);
             }
 
-            foreach (Block block in _blocks)
+            foreach (CollectableBlock block in _blocks)
             {
                 block.OnCollidedWithObstacle.RemoveListener(OnBlockCollided);
             }
         }
-
-
+        
     }
 }
