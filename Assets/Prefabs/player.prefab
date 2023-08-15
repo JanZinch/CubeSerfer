@@ -337,7 +337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d9dc82a7294cd69f6dca0eea6d355a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
   _blocksStack: {fileID: 65892473284170573}
   _onWon:
     m_PersistentCalls:
@@ -422,7 +421,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 114
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!1 &7898718367075022880
 GameObject:

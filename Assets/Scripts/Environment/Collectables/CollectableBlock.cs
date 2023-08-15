@@ -1,4 +1,5 @@
-﻿using Environment.Obstacles;
+﻿using System;
+using Environment.Obstacles;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,12 +18,13 @@ namespace Environment.Collectables
         public UnityEvent<CollectableBlock> OnGrounded => _onGrounded;
         public UnityEvent<CollectableBlock> OnUngrounded => _onUngrounded;
 
-        public Transform TrailPivot => _trailPivot;
-        
         public bool IsCollided { get; private set; }
         
+        public Transform TrailPivot => _trailPivot;
+        
+        private const string TrackObjectTag = "Track";
         private GameObject _usedTrack;
-
+        
         public void AttachTo(CollectableBlock other)
         {
             other.PutObject(transform);
@@ -61,23 +63,26 @@ namespace Environment.Collectables
             }
         }
         
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionStay(Collision other)
         {
-            if (other.gameObject.CompareTag("Track"))
+            bool alreadyGrounded = _usedTrack != null;
+
+            GameObject otherGameObject = other.gameObject;
+            
+            if (otherGameObject != _usedTrack && otherGameObject.CompareTag(TrackObjectTag))
             {
-                bool alreadyGrounded = _usedTrack != null;
-                _usedTrack = other.gameObject;
-                
+                _usedTrack = otherGameObject;
+
                 if (!alreadyGrounded)
                 {
                     OnGrounded?.Invoke(this);
                 }
             }
         }
-        
+
         private void OnCollisionExit(Collision other)
         {
-            if (other.gameObject.CompareTag("Track") && other.gameObject == _usedTrack)
+            if (other.gameObject == _usedTrack)
             {
                 _usedTrack = null;
                 OnUngrounded?.Invoke(this);
