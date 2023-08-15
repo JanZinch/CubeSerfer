@@ -33,16 +33,6 @@ namespace Controllers
             newBaseBlock.PutObject(transform);
         }
 
-        private void Win()
-        {
-            _onWon?.Invoke();
-        }
-
-        private void Lose()
-        {
-            _onLost?.Invoke();
-        }
-
         private void OnBlockRemoved(CollectableBlock block)
         {
             if (_baseBlock == block)
@@ -57,6 +47,11 @@ namespace Controllers
                     Lose();
                 }
             }
+        }
+        
+        private void Lose()
+        {
+            _onLost?.Invoke();
         }
 
         private void OnDisable()

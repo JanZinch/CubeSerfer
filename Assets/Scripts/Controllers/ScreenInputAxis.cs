@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -27,8 +26,8 @@ namespace Controllers
 
         private void Start()
         {
-            GameStateMachine.Instance.OnWinning += () => { enabled = false; };
-            GameStateMachine.Instance.OnLoss += () => { enabled = false; };
+            GameStateMachine.Instance.OnWinning.AddListener(SelfDisable);
+            GameStateMachine.Instance.OnLoss.AddListener(SelfDisable);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -55,6 +54,11 @@ namespace Controllers
             _state = ScreenState.Free;
             
             OnFingerUp?.Invoke();
+        }
+
+        private void SelfDisable()
+        {
+            enabled = false;
         }
     }
 }

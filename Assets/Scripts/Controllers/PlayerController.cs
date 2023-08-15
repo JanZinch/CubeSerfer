@@ -20,8 +20,8 @@ namespace Controllers
         
         private void OnEnable()
         {
-            GameStateMachine.Instance.OnWinning += StopMoving;
-            GameStateMachine.Instance.OnLoss += StopMoving;
+            GameStateMachine.Instance.OnWinning.AddListener(StopMoving);
+            GameStateMachine.Instance.OnLoss.AddListener(StopMoving);
 
             _splineFollower.onEndReached += PathPassedInvoke;
         }
@@ -66,8 +66,8 @@ namespace Controllers
         {
             _splineFollower.onEndReached -= PathPassedInvoke;
             
-            GameStateMachine.Instance.OnWinning -= StopMoving;
-            GameStateMachine.Instance.OnLoss -= StopMoving;
+            GameStateMachine.Instance.OnWinning.RemoveListener(StopMoving);
+            GameStateMachine.Instance.OnLoss.RemoveListener(StopMoving);
         }
     }
 }

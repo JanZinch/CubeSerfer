@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,12 +11,19 @@ namespace Controllers
     {
         public static GameStateMachine Instance { get; private set; }
 
+        [Header("References")]
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private Character _character;
         [SerializeField] private Button _restartButton;
+
+        [Header("Events")]
+        [SerializeField] private UnityEvent _onWinning;
+        [SerializeField] private UnityEvent _onLoss;
         
-        public event Action OnWinning;
-        public event Action OnLoss;
+        private const float ShowRestartButtonDelay = 1.0f;
+        
+        public UnityEvent OnWinning => _onWinning;
+        public UnityEvent OnLoss => _onLoss;
         
         private void Awake()
         {
@@ -51,13 +59,13 @@ namespace Controllers
 
         private void ShowRestartButton()
         {
-            DOVirtual.DelayedCall(3.0f, () =>
+            DOVirtual.DelayedCall(ShowRestartButtonDelay, () =>
             {
                 _restartButton.gameObject.SetActive(true);
             });
         }
 
-        private void RestartGame()
+        private static void RestartGame()
         {
             SceneManager.LoadScene("Game");
         }
