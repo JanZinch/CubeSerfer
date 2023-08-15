@@ -62,6 +62,7 @@ namespace Controllers
             {
                 if (_blocksStack.Top != null)
                 {
+                    _baseBlock = _blocksStack.Top;
                     _blocksStack.Top.PutCharacter(this);
                 }
                 else
