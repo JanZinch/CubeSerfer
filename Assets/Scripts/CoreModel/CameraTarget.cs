@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Controllers
+namespace CoreModel
 {
     public class CameraTarget : MonoBehaviour
     {

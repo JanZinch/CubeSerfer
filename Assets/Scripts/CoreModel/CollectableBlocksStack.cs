@@ -3,7 +3,7 @@ using Environment.Collectables;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Environment
+namespace CoreModel
 {
     [RequireComponent(typeof(Collider))]
     public class CollectableBlocksStack : MonoBehaviour

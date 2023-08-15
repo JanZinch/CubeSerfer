@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Controllers;
+using CoreModel;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Controllers
+namespace Management
 {
     public class GameStateMachine : MonoBehaviour
     {

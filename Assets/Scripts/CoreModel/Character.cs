@@ -3,7 +3,7 @@ using Environment.Collectables;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Controllers
+namespace CoreModel
 {
     public class Character : MonoBehaviour
     {
