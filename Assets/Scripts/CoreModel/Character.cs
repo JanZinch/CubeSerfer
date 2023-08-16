@@ -51,7 +51,6 @@ namespace CoreModel
         
         private void Lose()
         {
-            _blocksStack.gameObject.SetActive(false);
             _onLost?.Invoke();
         }
 

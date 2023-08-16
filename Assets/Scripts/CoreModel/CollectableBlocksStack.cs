@@ -61,7 +61,7 @@ namespace CoreModel
 
             if (foundNode == null)
             {
-                Debug.LogWarning("Block doesn't contain in stack");
+                Debug.LogWarning("The block is not contained on the stack");
             }
             else
             {
@@ -82,6 +82,11 @@ namespace CoreModel
                 _blocks.Remove(foundNode);
                 
                 OnBlockRemoved?.Invoke(block);
+
+                if (_blocks.Count == 0)
+                {
+                    OnAllRemoved();
+                }
             }
         }
         
@@ -126,7 +131,12 @@ namespace CoreModel
             block.OnGrounded.RemoveListener(OnBlockGrounded);
             block.OnUngrounded.RemoveListener(OnBlockUngrounded);
         }
-        
+
+        private void OnAllRemoved()
+        {
+            GetComponent<Collider>().enabled = false;
+        }
+
         private void OnDisable()
         {
             if (_blocks.Count > 0)
