@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CoreModel;
-using DG.Tweening;
 using Environment.Collectables;
 using UnityEngine;
 
@@ -13,74 +11,59 @@ namespace Environment
     {
         [SerializeField] private CollectableBlocksStack _blocksStack;
         
-        [SerializeField] private List<CollectableBlock> _blocks = new List<CollectableBlock>();
-
-        private const float CollectionTime = 0.001f;
-
-        private Coroutine _collectingRoutine;
+        private List<CollectableBlock> _blocks = new List<CollectableBlock>();
+        private Coroutine _heapLifetimeRoutine;
+        private static readonly WaitForFixedUpdate WaitForPhysicsUpdate = new WaitForFixedUpdate();
+        
+        private CollectableBlock Top => _blocks?.Last();
         
         private void OnEnable()
         {
             _blocksStack.OnBlockRemoved.AddListener(Add);
         }
         
-        public void Add(CollectableBlock block)
+        private void Add(CollectableBlock block)
         {
             _blocks.Add(block);
             OrderByHeights();
 
-            if (_collectingRoutine == null)
-            {
-                _collectingRoutine = StartCoroutine(Collecting());
-            }
+            _heapLifetimeRoutine ??= StartCoroutine(DelayedHeightsFix());
         }
 
-        private IEnumerator Collecting()
+        private IEnumerator DelayedHeightsFix()
         {
-            yield return new WaitForFixedUpdate();
+            yield return WaitForPhysicsUpdate;
 
-            Fix();
+            RemoveDestroyedBlocks();
+            FixBlockHeights();
             _blocks.Clear();
 
-            _collectingRoutine = null;
+            _heapLifetimeRoutine = null;
         }
 
-
-        private CollectableBlock Top => _blocks.Last();
+        private void RemoveDestroyedBlocks()
+        {
+            _blocks.RemoveAll(block => block.gameObject == null);
+        }
 
         private void OrderByHeights()
         {
             _blocks = new List<CollectableBlock>(_blocks.OrderBy(everyBlock => everyBlock.transform.position.y));
         }
-
-        [EasyButtons.Button]
-        private void Fix()
+        
+        private void FixBlockHeights()
         {
             for (int i = 0; i < _blocks.Count; i++)
             {
                 for (int j = 0; j < _blocks.Count; j++)
                 {
-                    if (i == j)
+                    if (i != j && CollectableBlock.AreIntersects(_blocks[i], _blocks[j]))
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        if (CollectableBlock.AreIntersects(_blocks[i], _blocks[j]))
-                        {
-                            Debug.LogWarning("INTERSECTION");
-                            
-                            _blocks[j].AttachTo(Top);
-                            OrderByHeights();
-                            
-                            /*Fix();
-                            break;*/
-                        }
+                        _blocks[j].AttachTo(Top);
+                        OrderByHeights();
                     }
                 }
-
             }
-            
         }
         
         private void OnDisable()
