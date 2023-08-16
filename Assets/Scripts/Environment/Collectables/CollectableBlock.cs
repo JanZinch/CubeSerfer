@@ -41,6 +41,12 @@ namespace Environment.Collectables
             transform.SetParent(null);
         }
         
+        public static bool AreIntersects(CollectableBlock one, CollectableBlock two)
+        {
+            return Mathf.Abs(one.transform.position.y - two.transform.position.y) < 
+                   one._meshRenderer.bounds.size.y / 2.0f;
+        }
+        
         private Vector3 GetAttachingPosition()
         {
             return transform.position + new Vector3(0.0f, _meshRenderer.bounds.size.y, 0.0f);
